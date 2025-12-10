@@ -12,10 +12,10 @@ export const productApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.user],
     }),
-    getSingleBlog: build.query({
+    getSingleProduct: build.query({
       query: (id) => {
         return {
-          url: `/blog/${id}`,
+          url: `/product/${id}`,
           method: "GET",
         };
       },
@@ -30,9 +30,9 @@ export const productApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.user],
     }),
 
-    deleteBlog: build.mutation({
+    deleteProduct: build.mutation({
       query: (id) => ({
-        url: `/blog/${id}`,
+        url: `/product/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [tagTypes.admin],
@@ -43,6 +43,6 @@ export const productApi = baseApi.injectEndpoints({
 export const {
   useCreateProductMutation,
   useGetAllProductsQuery,
-  useGetSingleBlogQuery,
-  useDeleteBlogMutation,
+  useGetSingleProductQuery,
+  useDeleteProductMutation,
 } = productApi;
