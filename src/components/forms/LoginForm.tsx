@@ -1,7 +1,6 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signInUser } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/actions/auth.services";
@@ -10,7 +9,6 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm();
 
@@ -26,71 +24,52 @@ export default function Login() {
         router.refresh();
       }
     } catch (err) {
-      alert("Account does not exist, please register first!");
+      alert("Account does not exist!");
     }
-  };
-
-  const fillDemoCredentials = (type: "admin" | "user") => {
-    if (type === "admin") {
-      setValue("email", "admin@gmail.com");
-      setValue("password", "123456");
-    } else {
-      setValue("email", "user@gmail.com");
-      setValue("password", "123456");
-    }
-    handleSubmit(onSubmit)();
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 px-4 py-8">
-      <div className="w-full max-w-md bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl p-8 space-y-8">
+    <div className="flex items-center justify-center px-6 text-black">
+      <div className="w bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-12 space-y-10 transform transition duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)]">
         {/* Title */}
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-amber-400 tracking-wide">
-            Welcome Back
-          </h1>
-          <p className="text-zinc-400 text-sm">Login to continue</p>
-        </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
           {/* Email */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm text-zinc-300 font-medium">
-              Email or Phone Number
+          <div>
+            <label className="text-sm text-gray-700 font-medium">
+              Email or Phone
             </label>
             <input
-              {...register("email", {
-                required: "Email or phone number is required",
-              })}
+              {...register("email", { required: "Email or phone is required" })}
               type="text"
-              placeholder="Enter your email or phone number"
-              className={`w-full h-11 px-4 bg-gray-800/50 text-zinc-200 border rounded-md focus:ring-2 focus:ring-amber-500 focus:outline-none ${
-                errors.email ? "border-red-500" : "border-zinc-600"
+              placeholder="Enter your email or phone"
+              className={`w-full h-12 px-4 bg-gray-800/40 text-gray-100 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition ${
+                errors.email ? "border-red-500" : "border-gray-600"
               }`}
             />
             {errors.email && (
-              <span className="text-red-500 text-sm">
+              <span className="text-red-400 text-sm">
                 {String(errors.email.message)}
               </span>
             )}
           </div>
 
           {/* Password */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm text-zinc-300 font-medium">
+          <div>
+            <label className="text-sm text-gray-700 font-medium">
               Password
             </label>
             <input
               {...register("password", { required: "Password is required" })}
               type="password"
               placeholder="Enter your password"
-              className={`w-full h-11 px-4 bg-gray-800/50 text-zinc-200 border rounded-md focus:ring-2 focus:ring-amber-500 focus:outline-none ${
-                errors.password ? "border-red-500" : "border-zinc-600"
+              className={`w-full h-12 px-4 bg-gray-800/40 text-gray-100 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition ${
+                errors.password ? "border-red-500" : "border-gray-600"
               }`}
             />
             {errors.password && (
-              <span className="text-red-500 text-sm">
+              <span className="text-red-400 text-sm">
                 {String(errors.password.message)}
               </span>
             )}
@@ -99,39 +78,11 @@ export default function Login() {
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-amber-500 to-red-600 text-white font-semibold uppercase rounded-md hover:opacity-90 transition"
+            className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-500 text-white font-semibold rounded-xl shadow-lg hover:opacity-95 active:scale-[0.98] transition-all duration-200"
           >
             Login
           </button>
         </form>
-
-        {/* Demo Login Buttons */}
-        <div className="flex gap-3 justify-between">
-          <button
-            onClick={() => fillDemoCredentials("admin")}
-            className="w-1/2 py-2 bg-gradient-to-r from-red-600 to-amber-500 text-white uppercase text-sm rounded-md hover:opacity-90 transition"
-          >
-            Admin Demo
-          </button>
-
-          <button
-            onClick={() => fillDemoCredentials("user")}
-            className="w-1/2 py-2 bg-gradient-to-r from-amber-500 to-red-600 text-white uppercase text-sm rounded-md hover:opacity-90 transition"
-          >
-            User Demo
-          </button>
-        </div>
-
-        {/* Register Link */}
-        <p className="text-center text-sm text-zinc-400">
-          New here?{" "}
-          <Link
-            href="/register"
-            className="text-amber-400 font-medium hover:underline"
-          >
-            Register now
-          </Link>
-        </p>
       </div>
     </div>
   );
