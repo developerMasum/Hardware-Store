@@ -15,8 +15,10 @@ export default function Login() {
   const router = useRouter();
 
   const onSubmit = async (data: any) => {
+    console.log("data", data);
     try {
       const res = await signInUser(data);
+      console.log(res);
 
       if (res?.data?.accessToken) {
         alert(res?.message);
