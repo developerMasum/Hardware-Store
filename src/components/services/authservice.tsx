@@ -1,6 +1,10 @@
 import { authKey } from "../constants/authKey";
 import { decodedToken } from "../utils/jwt";
-import { getFromLocalStorage, removeFromLocalStorage, setToLocalStorage } from "../utils/local-storage";
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+  setToLocalStorage,
+} from "../utils/local-storage";
 
 import { instance as axiosInstance } from "@/components/helpers/axiosInstance";
 export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
@@ -33,7 +37,7 @@ export const removeUser = () => {
 
 export const getNewAccessToken = async () => {
   return await axiosInstance({
-    url: "http://localhost:5000/api/auth/refresh-token",
+    url: "https://hardware-store-nine.vercel.app/api/auth/refresh-token",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
