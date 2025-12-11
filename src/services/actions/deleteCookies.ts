@@ -1,9 +1,19 @@
+// "use server";
+
+// import { cookies } from "next/headers";
+
+// export const deleteCookies = (keys: string[]) => {
+//   keys.forEach((key) => {
+//     cookies().delete(key);
+//   });
+// };
 "use server";
 
 import { cookies } from "next/headers";
 
-export const deleteCookies = (keys: string[]) => {
+export const deleteCookies = async (keys: string[]) => {
+  const cookieStore = await cookies();
   keys.forEach((key) => {
-    cookies().delete(key);
+    cookieStore.delete(key);
   });
 };
